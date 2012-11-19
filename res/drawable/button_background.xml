@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- FUNDO DO BOTÃO DO "ESQUECI MINHA SENHA" -->
+               <!-- SEM BORDA -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<!-- pressionado -->
+	<item android:state_pressed="true" >
+    	<shape>
+        	<gradient
+                android:startColor="@color/cinza_claro"
+                android:endColor="@color/cinza_claro_mais_claro"
+                android:angle="270" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+	</item>
+	
+	<!-- com foco -->
+	<item android:state_focused="true" >
+    	<shape>
+            <gradient
+                android:startColor="@color/cinza_claro"
+                android:endColor="@color/cinza_claro_mais_claro"
+                android:angle="270" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+	</item>
+    
+	<!-- padrao -->
+    <item>        
+        <shape>
+            <gradient
+                android:startColor="@color/cinza_escuro"
+                android:endColor="@color/cinza_escuro_mais_claro"
+                android:angle="270" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+    </item>
+</selector>
