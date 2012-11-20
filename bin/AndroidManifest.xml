@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AgentoCadastro"
+            android:label="@string/title_agento_cadastro" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="grupo.android.agento.Agento" />
+        </activity>
     </application>
 
 </manifest>

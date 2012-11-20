@@ -4,6 +4,7 @@ package grupo.android.agento;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -19,11 +20,15 @@ public class Agento extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agento);
+        
+      //inicializa os EditText para possivel manipulacao
+    	usuario = (EditText) findViewById(R.id.usuarioEditText);
+    	senha = (EditText) findViewById(R.id.senhaEditText);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
+        getMenuInflater().inflate(R.menu.agento, menu);
         return true;
     }
 
@@ -36,17 +41,14 @@ public class Agento extends Activity {
         
     	//preenche values com os usuarios cadastrados
     	values = datasource.getAllUsuarios();
-        
-    	//recebe usuario e senha digitados
-    	usuario = (EditText) findViewById(R.id.usuarioEditText);
-    	senha = (EditText) findViewById(R.id.senhaEditText);
        
+    	//protecao contra qualquer tipo de erro de digitacao
     	if(validaEntrada() == true){    	
-    		//protecao contra qualquer tipo de erro de digitacao
     		if(podeLogarMeuFilho() == true){
     			//fecha o banco
         		datasource.close();
         		
+        		usuario.setText("hello");
         		//>>>>>>CHAMAR A OUTRA ACTIVITY AQUI <<<<<
     		}
     	}else{
@@ -84,7 +86,9 @@ public class Agento extends Activity {
     	//redireciona para funcinalidade de esqueci a minha senha
     }
     
+  //redireciona para novo cadastro
     public void registrarRedirecionamento(View view){
-    	//redireciona para funcionalidade de novo cadastro
+    	startActivity(
+    			new Intent(this, AgentoCadastro.class));
     }
 }

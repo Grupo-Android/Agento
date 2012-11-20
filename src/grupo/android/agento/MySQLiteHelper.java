@@ -25,14 +25,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 	private static final int DATABASE_VERSAO = 1;
 	
 	// SQL para a criação da tabela USUARIOS
-	private static final String DATABASE_USUARIOS = "create table" + TABLE_USUARIOS + "("
+	private static final String DATABASE_USUARIOS = "create table " + TABLE_USUARIOS + " ("
 			+ COLUNA_ID_USUARIO + " integer primary key autoincrement, "
-			+ COLUNA_USUARIO + "text not null, "
-			+ COLUNA_SENHA + "text not null, "
-			+ COLUNA_EMAIL + "text not null);";
+			+ COLUNA_USUARIO + " text not null, "
+			+ COLUNA_SENHA + " text not null, "
+			+ COLUNA_EMAIL + " text not null);";
 	
 	// SQL para a criação da tabela EVENTOS
-	private static final String DATABASE_EVENTOS = "create table" + TABLE_EVENTOS + "("
+	private static final String DATABASE_EVENTOS = "create table " + TABLE_EVENTOS + " ("
 			+ COLUNA_ID_EVENTO + " integer primary key autoincrement, "
 			+ COLUNA_ESTADO + " text not null, "
 			+ COLUNA_EVENTO + " text);";

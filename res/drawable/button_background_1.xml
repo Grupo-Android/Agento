@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!-- FUNDO DOS BOTOES COM BORDA -->
+<!-- FUNDO DOS BOTOES COM CANTO ARREDONDADO -->
     
 	<!-- pressionado -->
 	<item android:state_pressed="true" >

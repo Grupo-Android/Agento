@@ -13,7 +13,7 @@
         android:ems="10"
         android:hint="@string/username" >
     </EditText>
-
+
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_background"
-        android:onClick="esqueciSenha"
+        android:onClick="esqueciSenhaRedirecionamento"
         android:text="@string/forget_password"
         android:textColor="@android:color/white" />
 

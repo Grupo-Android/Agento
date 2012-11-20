@@ -8,7 +8,7 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/usuarioCadastroEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -19,41 +19,51 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/senhaCadastroEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="19dp"
+        android:layout_alignLeft="@+id/usuarioCadastroEditText"
+        android:layout_below="@+id/usuarioCadastroEditText"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" >
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/emailCadastroEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/senhaCadastroEditText"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" >
 
         <requestFocus />
     </EditText>
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_alignLeft="@+id/emailCadastroEditText"
+        android:layout_below="@+id/emailCadastroEditText"
+        android:layout_marginTop="74dp"
         android:background="@drawable/button_background_1"
         android:onClick="registrar"
         android:text="@string/register"
+        android:textColor="@color/branco" />
+
+    <Button
+        android:id="@+id/cancelarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignRight="@+id/emailCadastroEditText"
+        android:background="@drawable/button_background_1"
+        android:onClick="cancelar"
+        android:text="@string/cancelar"
         android:textColor="@color/branco" />
 
 </RelativeLayout>
