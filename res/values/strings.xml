@@ -9,4 +9,5 @@
     <string name="login">Entrar</string>
     <string name="register">Cadastrar</string>
     <string name="forget_password">Esqueci minha Senha</string>
+    <string name="email">Email:</string>
 </resources>

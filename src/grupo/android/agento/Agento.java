@@ -3,8 +3,6 @@ package grupo.android.agento;
 
 import java.util.List;
 
-import DataBase.Usuarios;
-import DataBase.UsuariosDataSource;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -82,11 +80,11 @@ public class Agento extends Activity {
         return false;
     }
     
-    public void esqueciSenha(View view){
-    	//funcinalidade de esqueci a minha senha
+    public void esqueciSenhaRedirecionamento(View view){
+    	//redireciona para funcinalidade de esqueci a minha senha
     }
     
-    public void registrar(View view){
-    	//funcionalidade de novo cadastro
+    public void registrarRedirecionamento(View view){
+    	//redireciona para funcionalidade de novo cadastro
     }
 }

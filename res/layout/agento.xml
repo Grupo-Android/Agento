@@ -35,7 +35,7 @@
         android:onClick="login"
         android:text="@string/login"
         android:textColor="@android:color/white" />
-
+
     <Button
         android:id="@+id/button2"
         android:layout_width="180dp"
@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_background_1"
-        android:onClick="registrar"
+        android:onClick="registrarRedirecionamento"
         android:text="@string/register"
         android:textColor="@android:color/white" />
 

@@ -1,4 +1,4 @@
-package DataBase;
+package grupo.android.agento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +28,11 @@ public class UsuariosDataSource {
 	}
 	
 	// Insert na tabela USUARIOS
-	public Usuarios insertUsuario(String usuario) {
+	public Usuarios insertUsuario(String usuario, String senha, String email) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUNA_USUARIO, usuario);
-		values.put(MySQLiteHelper.COLUNA_SENHA, usuario);
-		values.put(MySQLiteHelper.COLUNA_EMAIL, usuario);
+		values.put(MySQLiteHelper.COLUNA_SENHA, senha);
+		values.put(MySQLiteHelper.COLUNA_EMAIL, email);
 		long insertId = database.insert(MySQLiteHelper.TABLE_USUARIOS, null,
 				values);
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_USUARIOS,

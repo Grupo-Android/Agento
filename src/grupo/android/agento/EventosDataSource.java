@@ -1,4 +1,4 @@
-package DataBase;
+package grupo.android.agento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ public class EventosDataSource {
 	}
 	
 	// Insert na tabela EVENTOS
-	public Eventos insertEvento(String evento) {
+	public Eventos insertEvento(String estado, String evento) {
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COLUNA_ESTADO, evento);
+		values.put(MySQLiteHelper.COLUNA_ESTADO, estado);
 		values.put(MySQLiteHelper.COLUNA_EVENTO, evento);
 		long insertId = database.insert(MySQLiteHelper.TABLE_EVENTOS, null,
 				values);
