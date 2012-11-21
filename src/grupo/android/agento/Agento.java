@@ -48,8 +48,11 @@ public class Agento extends Activity {
     			//fecha o banco
         		datasource.close();
         		
-        		usuario.setText("hello");
-        		//>>>>>>CHAMAR A OUTRA ACTIVITY AQUI <<<<<
+        		usuario.setText("Usuário:");
+        		senha.setText("Senha:");
+        		//ACTIVITY AgentoEvento
+        		startActivity(
+            			new Intent(this, AgentoEvento.class));
     		}
     	}else{
     		//>>>>>>exibe mensagem de erro<<<<<
