@@ -33,7 +33,8 @@ public final class R {
         public static final int ic_action_search=0x7f020003;
         public static final int ic_error=0x7f020004;
         public static final int ic_launcher=0x7f020005;
-        public static final int plus=0x7f020006;
+        public static final int pen=0x7f020006;
+        public static final int plus=0x7f020007;
     }
     public static final class id {
         public static final int MensagemErroTextView=0x7f0a000f;
@@ -43,13 +44,13 @@ public final class R {
         public static final int button2=0x7f0a0003;
         public static final int button3=0x7f0a0001;
         public static final int cancelarButton=0x7f0a000a;
-        public static final int checkBox1=0x7f0a000c;
         public static final int emailCadastroEditText=0x7f0a0009;
         public static final int menu_settings=0x7f0a0010;
         public static final int scrollView1=0x7f0a000b;
         public static final int senhaCadastroEditText=0x7f0a0008;
         public static final int senhaEditText=0x7f0a0004;
         public static final int spinner1=0x7f0a000e;
+        public static final int tableLayout=0x7f0a000c;
         public static final int textView1=0x7f0a0005;
         public static final int usuarioCadastroEditText=0x7f0a0007;
         public static final int usuarioEditText=0x7f0a0000;
