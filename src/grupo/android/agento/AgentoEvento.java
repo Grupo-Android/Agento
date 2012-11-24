@@ -22,7 +22,6 @@ import android.support.v4.app.NavUtils;
 
 public class AgentoEvento extends Activity { 
 	
-	//abre o banco
 	private EventosDataSource datasource;
 	private String estado, evento;
 	
@@ -53,7 +52,14 @@ public class AgentoEvento extends Activity {
         	ImageButton button = new ImageButton(this);
         	button.setImageResource(R.drawable.pen);
         	button.setBackgroundResource(0);
-        
+        	final int aux = i;
+        	button.setOnClickListener( new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					edita(aux);
+				}
+			});
+        	
         	TextView text = new TextView(this);
         	evento = values.get(i).getEvento().toString();
         	text.setText(evento);
@@ -61,7 +67,7 @@ public class AgentoEvento extends Activity {
             text.setMaxEms(13);
             text.setTextSize(11);
         	
-        	CheckBox box = new CheckBox(this);
+        	final CheckBox box = new CheckBox(this);
         	if(values.get(i).getEstado().toString().equals("pendente"))
         		box.setChecked(false);
         		else
@@ -132,5 +138,10 @@ public class AgentoEvento extends Activity {
        startActivity(
        		new Intent(this, Agento.class)
        	);
+    }
+    public void edita(int i){
+    	Intent intent = new Intent(getBaseContext(), EditaEvento.class);
+    	intent.putExtra("id_Evento", i);
+    	startActivity(intent);
     }
 }

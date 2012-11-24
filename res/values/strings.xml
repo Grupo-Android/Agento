@@ -16,5 +16,6 @@
     <string name="sucesso_cadastro">Cadastro realizado com sucesso</string>
     <string name="usuario_senha_invalidos">Usuário ou senha inválidos</string>
     <string name="title_activity_agento_evento">Eventos</string>
+    <string name="title_activity_edita_evento">EditaEvento</string>
 
 </resources>

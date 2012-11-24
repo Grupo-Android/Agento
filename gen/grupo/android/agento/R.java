@@ -40,15 +40,19 @@ public final class R {
         public static final int trash=0x7f02000a;
     }
     public static final class id {
-        public static final int MensagemErroTextView=0x7f0a0010;
+        public static final int MensagemErroTextView=0x7f0a0014;
         public static final int RelativeLayout1=0x7f0a0006;
         public static final int btnAddEvento=0x7f0a000d;
+        public static final int btnCancelar=0x7f0a0011;
+        public static final int btnSalvar=0x7f0a0012;
         public static final int button1=0x7f0a0002;
         public static final int button2=0x7f0a0003;
         public static final int button3=0x7f0a0001;
         public static final int cancelarButton=0x7f0a000a;
+        public static final int datePicker1=0x7f0a0013;
+        public static final int editEvento=0x7f0a0010;
         public static final int emailCadastroEditText=0x7f0a0009;
-        public static final int menu_settings=0x7f0a0011;
+        public static final int menu_settings=0x7f0a0015;
         public static final int scrollView1=0x7f0a000b;
         public static final int senhaCadastroEditText=0x7f0a0008;
         public static final int senhaEditText=0x7f0a0004;
@@ -63,12 +67,14 @@ public final class R {
         public static final int agento=0x7f030000;
         public static final int agento_cadastro=0x7f030001;
         public static final int agento_evento=0x7f030002;
-        public static final int mensagem_erro=0x7f030003;
+        public static final int edita_evento=0x7f030003;
+        public static final int mensagem_erro=0x7f030004;
     }
     public static final class menu {
         public static final int agento=0x7f090000;
         public static final int agento_cadastro=0x7f090001;
         public static final int agento_evento=0x7f090002;
+        public static final int edita_evento=0x7f090003;
     }
     public static final class string {
         public static final int app_name=0x7f070000;
@@ -83,6 +89,7 @@ public final class R {
         public static final int register=0x7f070007;
         public static final int sucesso_cadastro=0x7f07000d;
         public static final int title_activity_agento_evento=0x7f07000f;
+        public static final int title_activity_edita_evento=0x7f070010;
         public static final int title_agento=0x7f070003;
         public static final int title_agento_cadastro=0x7f07000a;
         public static final int username=0x7f070004;

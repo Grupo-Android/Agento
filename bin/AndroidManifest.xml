@@ -22,9 +22,8 @@
         </activity>
         <activity
             android:name=".AgentoCadastro"
-            android:label="@string/title_agento_cadastro" 
-            android:theme="@android:style/Theme.Translucent">
-			
+            android:label="@string/title_agento_cadastro"
+            android:theme="@android:style/Theme.Translucent" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="grupo.android.agento.Agento" />
@@ -36,7 +35,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="grupo.android.agento.Agento" />
         </activity>
-        
+        <activity
+            android:name=".EditaEvento"
+            android:label="@string/title_activity_edita_evento" 
+            android:theme="@android:style/Theme.Translucent" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="grupo.android.agento.Agento" />
+        </activity>
     </application>
 
 </manifest>
