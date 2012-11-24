@@ -14,11 +14,35 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="62dp"
         android:fillViewport="true" >
-
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"
+                android:text="Button" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight="2"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right" />
+
         </LinearLayout>
+
     </ScrollView>
 
     <RelativeLayout
@@ -27,16 +51,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:listSelector="@android:color/transparent">
-
+
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/btnAddEvento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_weight="1"
-            android:src="@drawable/plus" 
-            android:listSelector="@android:color/transparent"/>
+            android:listSelector="@android:color/transparent"
+            android:src="@drawable/plus" />
 
         <Spinner
             android:id="@+id/spinner1"

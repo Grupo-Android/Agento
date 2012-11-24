@@ -2,8 +2,13 @@ package grupo.android.agento;
 
 public class ValidaEntrada {
     //valida usuario e senha
-    public static boolean validaEntrada(String entrada){
-        return entrada.matches("[a-zA-Z0-9]+");
+    public static boolean validaUsuario(String usuario){
+        return usuario.matches("[a-zA-Z0-9]+");
+    }
+    
+    //valida senha
+    public static boolean validaSenha(String senha){
+        return senha.matches("[a-zA-Z0-9]+");
     }
     
     //valida email 

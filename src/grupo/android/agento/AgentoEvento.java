@@ -2,8 +2,10 @@ package grupo.android.agento;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 
 public class AgentoEvento extends Activity {
@@ -19,6 +21,4 @@ public class AgentoEvento extends Activity {
         getMenuInflater().inflate(R.menu.agento_evento, menu);
         return true;
     }
-
-    
 }
