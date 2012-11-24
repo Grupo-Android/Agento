@@ -2,6 +2,7 @@ package grupo.android.agento;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +29,18 @@ public class AgentoEvento extends Activity {
     }
     
     public void addEvento(View v){
+    	
     	TableLayout tl = (TableLayout)findViewById(R.id.tableLayout);
+    	
         //Criando uma nova linha
         TableRow tr = new TableRow(this);
         tr.setWeightSum(1);
+        tr.setBackgroundResource(R.drawable.evento_gradiente);
+        
         //Criando os componentes
         ImageButton button = new ImageButton(this);
         button.setImageResource(R.drawable.pen);
+        button.setBackgroundResource(0);
         
         TextView text = new TextView(this);
         text.setText("Arraste até a lixeira para excluir");

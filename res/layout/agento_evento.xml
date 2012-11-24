@@ -23,25 +23,28 @@
         </TableLayout>
 
     </ScrollView>
-
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:listSelector="@android:color/transparent">
-
+        android:background="@drawable/eventos_head"
+        android:listSelector="@android:color/transparent" >
+
         <ImageButton
             android:id="@+id/btnAddEvento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
             android:layout_weight="1"
+            android:background="@null"
             android:listSelector="@android:color/transparent"
             android:onClick="addEvento"
             android:src="@drawable/plus" />
-
+
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="wrap_content"
@@ -50,5 +53,14 @@
             android:entries="@array/listviewevento" />
 
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/trashButton"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/trash" />
 
 </RelativeLayout>
