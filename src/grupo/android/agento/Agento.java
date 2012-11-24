@@ -59,6 +59,7 @@ public class Agento extends Activity {
         		startActivity(
         			new Intent(this, AgentoEvento.class)
         		);
+        		this.finish();
     		}
     	}else{
     		int duration = Toast.LENGTH_SHORT;
