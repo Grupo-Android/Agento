@@ -53,6 +53,7 @@ public class AgentoEvento extends Activity {
         	button.setImageResource(R.drawable.pen);
         	button.setBackgroundResource(0);
         	final int aux = i;
+        	//EVENTO DO BOTÃO EDITAR
         	button.setOnClickListener( new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -60,7 +61,7 @@ public class AgentoEvento extends Activity {
 				}
 			});
         	
-        	TextView text = new TextView(this);
+        	final TextView text = new TextView(this);
         	evento = values.get(i).getEvento().toString();
         	text.setText(evento);
         	text.setMaxLines(1);
@@ -68,6 +69,20 @@ public class AgentoEvento extends Activity {
             text.setTextSize(11);
         	
         	final CheckBox box = new CheckBox(this);
+        	box.setOnClickListener( new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(box.isChecked() == true){
+						datasource.open();
+				        datasource.update((aux + 1), "concluido", text.getText().toString());
+				        datasource.close();
+					}else{
+						datasource.open();
+				        datasource.update((aux + 1), "pendente", text.getText().toString());
+				        datasource.close();
+					}
+				}
+			});
         	if(values.get(i).getEstado().toString().equals("pendente"))
         		box.setChecked(false);
         		else
@@ -93,6 +108,7 @@ public class AgentoEvento extends Activity {
     public void addEvento(View v){
     	datasource = new EventosDataSource(this);
     	datasource.open();
+    	final List<Eventos> values = datasource.getAllEventos();
     	
     	TableLayout tl = (TableLayout)findViewById(R.id.tableLayout);
     	
@@ -106,14 +122,35 @@ public class AgentoEvento extends Activity {
         button.setImageResource(R.drawable.pen);
         button.setBackgroundResource(0);
         
-        TextView text = new TextView(this);
+    	//EVENTO DO BOTÃO EDITAR
+    	button.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				edita(values.size());
+			}
+		});
+    	
+        final TextView text = new TextView(this);
         text.setText("Arraste até a lixeira para excluir");
         text.setMaxLines(1);
         text.setMaxEms(13);
         text.setTextSize(11);
         
-        CheckBox box = new CheckBox(this);
-        
+        final CheckBox box = new CheckBox(this);
+    	box.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(box.isChecked() == true){
+					datasource.open();
+			        datasource.update((values.size()), "concluido", text.getText().toString());
+			        datasource.close();
+				}else{
+					datasource.open();
+			        datasource.update((values.size()), "pendente", text.getText().toString());
+			        datasource.close();
+				}
+			}
+		});
         //Adicionando os componentes na linha
         tr.addView(button);
         tr.addView(text);
@@ -143,5 +180,6 @@ public class AgentoEvento extends Activity {
     	Intent intent = new Intent(getBaseContext(), EditaEvento.class);
     	intent.putExtra("id_Evento", i);
     	startActivity(intent);
+    	finish();
     }
 }

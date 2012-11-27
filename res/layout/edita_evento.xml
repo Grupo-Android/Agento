@@ -27,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:background="@drawable/button_background_1"
         android:onClick="cancelar"
-        android:text="Cancelar" />
+        android:text="Fechar" />
 
     <Button
         android:id="@+id/btnSalvar"

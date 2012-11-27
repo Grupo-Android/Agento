@@ -43,10 +43,10 @@ public class EventosDataSource {
 		return novoEvento;
 	}
 	
-	public void update(long id, String v1, String v2){
+	public void update(long id, String estado, String evento){
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COLUNA_ESTADO, v1);
-		values.put(MySQLiteHelper.COLUNA_ID_EVENTO, v2);
+		values.put(MySQLiteHelper.COLUNA_ESTADO, estado);
+		values.put(MySQLiteHelper.COLUNA_EVENTO, evento);
 		database.update(MySQLiteHelper.TABLE_EVENTOS, values, "_id ="+id, null);
 	}
 	

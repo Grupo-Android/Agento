@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ public class EditaEvento extends Activity {
 	private TextView text;
 	private EventosDataSource datasource;
 	private SQLiteDatabase sql;
-	private int value;
+	private long value;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class EditaEvento extends Activity {
         datasource = new EventosDataSource(this);
         datasource.open();
     	List<Eventos> values = datasource.getAllEventos();
-    	text.setText(values.get(value).getEvento().toString());
+    	text.setText(values.get((int) value).getEvento().toString());
     	datasource.close();
     }
 
@@ -42,13 +43,29 @@ public class EditaEvento extends Activity {
     }
 
     public void salvar(View v){
-    	datasource = new EventosDataSource(this);
         datasource.open();
-        datasource.update(value, "pendente", text.getText().toString());
+        datasource.update((value + 1), "pendente", text.getText().toString());
         datasource.close();
     }
     public void cancelar(View v){
+    	startActivity(
+           	new Intent(this, AgentoEvento.class)
+        );
     	this.finish();
     }
-    
+    @Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		//fecha banco
+		datasource.close();
+	}
+    @Override
+    public void onBackPressed() {
+       super.onBackPressed();
+       startActivity(
+       		new Intent(this, AgentoEvento.class)
+       	);
+       	finish();
+    }
 }
