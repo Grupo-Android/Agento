@@ -17,11 +17,10 @@ import android.widget.TextView;
 
 public class AgentoCadastro extends Activity {
 	private UsuariosDataSource datasource;
-	private EditText usuario;
-	private EditText senha;
-	private EditText email;
+	private EditText usuario,
+					senha,
+					email;
 	private static final int MENSAGEM_ERRO = 1;
-	private static final int MENSAGEM_SUCESSO = 2;
 	private String mensagemErro;
 	
     @Override
@@ -54,7 +53,7 @@ public class AgentoCadastro extends Activity {
 		datasource.close();
 	}
     
-	//TODO Concertar o método showDialog que está ultrapassado
+	//TODO Mensagem de sucesso
     //faz o cadastro do novo usuario
 	public void registrar(View view){
 		boolean entradaValida = entradaValida();
@@ -65,23 +64,19 @@ public class AgentoCadastro extends Activity {
     			datasource.insertUsuario(usuario.getText().toString(),
     					senha.getText().toString(),
     					email.getText().toString());
-    		
-    			//mostra mensagem de sucesso
-    			showDialog(MENSAGEM_SUCESSO);
-    		
+    			
     			//redireciona para tela de login
     			startActivity(
     					new Intent(this, Agento.class));
     	}else{
     		
     		if(entradaValida == false)
-    			showDialog(MENSAGEM_ERRO);
+    			mostraMensagem(MENSAGEM_ERRO);
     	}
     }
     
     //verifica se existe o nome de usuario é unico
     private boolean usuarioUnico(){
-    	
     	//preenche values com os usuarios cadastrados
     	List<Usuarios> values = datasource.getAllUsuarios();
     	
@@ -129,45 +124,16 @@ public class AgentoCadastro extends Activity {
         				&& ValidaEntrada.validaEmail(email.getText().toString());
     }
 
-
-    //cria mensagens baseadas no parametro
-    @Override
-    public Dialog onCreateDialog(int id) {
-		AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
-		AlertDialog.Builder sucessDialog = new AlertDialog.Builder(this);
-		
-		//configura a mensagem de erro
-		LayoutInflater li = LayoutInflater.from(this);
-		View mensagemErroView = li.inflate(R.layout.mensagem_erro, null);
-		
-		errorDialog.setTitle(R.string.erro);
-		errorDialog.setIcon(R.drawable.ic_error);
-		errorDialog.setView(mensagemErroView);
-		errorDialog.setPositiveButton("OK", new OnClickListener() {
-			public void onClick(DialogInterface dialog, int arg1) {} //faz nada
-		});
-
-    	switch(id) {
-			case (MENSAGEM_ERRO) :
-				return errorDialog.create();
-    		case (MENSAGEM_SUCESSO) : 
-    			sucessDialog.setTitle(R.string.sucesso_cadastro);
-				sucessDialog.show();
-				break;
-    	}
-    	return null;
-    }
-    
-    //chamado logo apos o onCreateDialog
-    @Override
-    public void onPrepareDialog(int id, Dialog dialog) {
-    	//cria TextView das mensagens de erro
-    	TextView tv = (TextView) dialog.findViewById(R.id.MensagemErroTextView);
+    public void mostraMensagem(int id){
+    	AlertDialog.Builder msg = new AlertDialog.Builder(this);
     	
     	switch(id) {
-    		case (MENSAGEM_ERRO) :
-    			tv.setText(mensagemErro);
-    			break;
+			case (MENSAGEM_ERRO) :
+				msg.setTitle(R.string.erro);
+				msg.setIcon(R.drawable.ic_error);
+				msg.setNeutralButton("OK", null);
+				msg.setMessage(mensagemErro);
+				break;
     	}
     }
 }

@@ -30,7 +30,8 @@
         </activity>
         <activity
             android:name=".AgentoEvento"
-            android:label="@string/title_activity_agento_evento" >
+            android:label="@string/title_activity_agento_evento"
+             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="grupo.android.agento.Agento" />
