@@ -49,18 +49,15 @@ public class Agento extends Activity {
     //TODO Concertar Método
     //chamado quando o botão entrar for clicado
     public void entrar(View view) {
-    	
-    	//protecao contra qualquer tipo de erro de digitacao
-    	if(validaEntrada() == true){    	
-    		if(login() == true){
-    			//fecha o banco
-        		datasource.close();
+    	   	   	
+    	if(login() == true){
+    		//fecha o banco
+        	datasource.close();
         		
-        		startActivity(
-        			new Intent(this, AgentoEvento.class)
-        		);
-        		this.finish();
-    		}
+        	startActivity(
+        		new Intent(this, AgentoEvento.class)
+        	);
+        	this.finish();
     	}else{
     		int duration = Toast.LENGTH_SHORT;
     		Toast toast = Toast.makeText(this, R.string.usuario_senha_invalidos, duration);
@@ -79,6 +76,11 @@ public class Agento extends Activity {
     
     //verifica se o usuario pode logar
     private boolean login(){
+    	
+    	//protecao contra qualquer tipo de erro de digitacao
+    	if(validaEntrada() == false)
+    		return false;
+    	
     	//preenche values com os usuarios cadastrados
     	values = datasource.getAllUsuarios();
     	

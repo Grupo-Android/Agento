@@ -16,7 +16,7 @@
         android:layout_marginTop="66dp"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="textPersonName" />
+        android:inputType="textUri" />
 
     <EditText
         android:id="@+id/senhaCadastroEditText"

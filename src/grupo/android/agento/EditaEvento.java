@@ -53,6 +53,7 @@ public class EditaEvento extends Activity {
         );
     	this.finish();
     }
+    
     @Override
 	protected void onDestroy() {
 		super.onDestroy();

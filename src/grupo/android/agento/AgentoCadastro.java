@@ -20,11 +20,9 @@ public class AgentoCadastro extends Activity {
 	private EditText usuario;
 	private EditText senha;
 	private EditText email;
-	private static final int MENSAGEM_ERRO_ENTRADA_INVALIDA = 1;
+	private static final int MENSAGEM_ERRO = 1;
 	private static final int MENSAGEM_SUCESSO = 2;
-	private static final int MENSAGEM_ERRO_USUARIO_EXISTENTE = 3;
-	private String mensagemErroEntradaInvalida,
-		mensagemErroUsuarioExistente;
+	private String mensagemErro;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +58,8 @@ public class AgentoCadastro extends Activity {
     //faz o cadastro do novo usuario
 	public void registrar(View view){
 		boolean entradaValida = entradaValida();
-		boolean usuarioUnico = usuarioUnico();
 		
 		if(entradaValida == true){
-    		if(usuarioUnico == true){
     			
     			//cadastra usuario
     			datasource.insertUsuario(usuario.getText().toString(),
@@ -76,16 +72,10 @@ public class AgentoCadastro extends Activity {
     			//redireciona para tela de login
     			startActivity(
     					new Intent(this, Agento.class));
-    		}
     	}else{
     		
-    		//mostra mensagens de erro
-    		if(usuarioUnico == false)
-    			showDialog(MENSAGEM_ERRO_USUARIO_EXISTENTE);
-    		
-    		
     		if(entradaValida == false)
-    			showDialog(MENSAGEM_ERRO_ENTRADA_INVALIDA);
+    			showDialog(MENSAGEM_ERRO);
     	}
     }
     
@@ -97,7 +87,6 @@ public class AgentoCadastro extends Activity {
     	
     	for(int i = 0; i < values.size(); ++i)
     		if(values.get(i).getUsuario().equals(usuario.getText().toString())){
-    			mensagemErroUsuarioExistente = "-> Usuário Existente\n";
     			return false;
     		}
     	
@@ -119,14 +108,21 @@ public class AgentoCadastro extends Activity {
     	boolean emailValido = ValidaEntrada.validaEmail(
     			email.getText().toString());
     	
-    	mensagemErroEntradaInvalida = "";
+    	mensagemErro = "";
     	
-    	if( usuarioValido == false)
-    		mensagemErroEntradaInvalida += "-> Usuario Inválido\n";
     	if( senhaValida == false)
-    		mensagemErroEntradaInvalida += "-> Senha Inválida\n";
+    		mensagemErro += "-> Senha Inválida\n";
     	if( emailValido == false)
-    		mensagemErroEntradaInvalida += "-> Email Inválido\n";
+    		mensagemErro += "-> Email Inválido\n";
+    	if( usuarioValido == true){
+        	if(usuarioUnico() == false){
+            	mensagemErro += "-> Usuário Existente\n";
+        		return false;
+        	}
+    	}else{
+    		mensagemErro += "-> Usuario Inválido\n";
+    	}
+    	
     	
         return ValidaEntrada.validaUsuario(usuario.getText().toString())
         		&& ValidaEntrada.validaSenha(senha.getText().toString())
@@ -152,10 +148,8 @@ public class AgentoCadastro extends Activity {
 		});
 
     	switch(id) {
-			case (MENSAGEM_ERRO_USUARIO_EXISTENTE) :
+			case (MENSAGEM_ERRO) :
 				return errorDialog.create();
-    		case (MENSAGEM_ERRO_ENTRADA_INVALIDA) :
-    			return errorDialog.create();
     		case (MENSAGEM_SUCESSO) : 
     			sucessDialog.setTitle(R.string.sucesso_cadastro);
 				sucessDialog.show();
@@ -171,11 +165,8 @@ public class AgentoCadastro extends Activity {
     	TextView tv = (TextView) dialog.findViewById(R.id.MensagemErroTextView);
     	
     	switch(id) {
-    		case (MENSAGEM_ERRO_ENTRADA_INVALIDA) :
-    			tv.setText(mensagemErroEntradaInvalida);
-    			break;
-    		case (MENSAGEM_ERRO_USUARIO_EXISTENTE) :
-    			tv.setText(mensagemErroUsuarioExistente);
+    		case (MENSAGEM_ERRO) :
+    			tv.setText(mensagemErro);
     			break;
     	}
     }

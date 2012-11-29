@@ -40,7 +40,7 @@
             android:label="@string/title_activity_edita_evento">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="grupo.android.agento.Agento" />
+                android:value="grupo.android.agento.AgentoEvento" />
         </activity>
     </application>
 

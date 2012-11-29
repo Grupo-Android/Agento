@@ -17,5 +17,7 @@
     <string name="usuario_senha_invalidos">Usuário ou senha inválidos</string>
     <string name="title_activity_agento_evento">Eventos</string>
     <string name="title_activity_edita_evento">EditaEvento</string>
+    <string name="salvar">Salvar</string>
+    <string name="fechar">Fechar</string>
 
 </resources>
