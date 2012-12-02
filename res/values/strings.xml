@@ -19,5 +19,6 @@
     <string name="title_activity_edita_evento">EditaEvento</string>
     <string name="salvar">Salvar</string>
     <string name="fechar">Fechar</string>
+    <string name="voltar">Voltar</string>
 
 </resources>

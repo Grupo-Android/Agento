@@ -10,7 +10,8 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+       	android:name="greendroid.app.GDApplication">
         <activity
             android:name=".Agento"
             android:label="@string/title_agento" >
@@ -29,9 +30,11 @@
                 android:value="grupo.android.agento.Agento" />
         </activity>
         <activity
-            android:name=".AgentoEvento"
+            
+      		android:name=".AgentoEvento"
             android:label="@string/title_activity_agento_evento"
-             >
+            android:theme="@style/Theme.GreenDroid"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="grupo.android.agento.Agento" />

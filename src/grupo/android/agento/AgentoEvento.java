@@ -1,44 +1,57 @@
 package grupo.android.agento;
 
+import greendroid.widget.QuickAction;
+import greendroid.widget.QuickActionBar;
+import greendroid.widget.QuickActionWidget;
+import greendroid.widget.QuickActionWidget.OnQuickActionClickListener;
+
 import java.util.List;
 
-import android.os.Bundle;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.KeyEvent;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
+import android.widget.Toast;
 
 public class AgentoEvento extends Activity { 
-	
 	private EventosDataSource datasource;
-	private String estado, evento;
-	
+	private String evento;
+    private QuickActionWidget mBar;
+    private final String DEFAULT_MSG = "Touch to Edit";
+    private int aux;
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agento_evento);
-        
+
         datasource = new EventosDataSource(this);
+        
+        prepareQuickActionBar();        
+        carregaEventoSalvo();
+    }
+
+	private void carregaEventoSalvo() {
+		
         datasource.open();
     	List<Eventos> values = datasource.getAllEventos();
     	datasource.close();
     	
     	//LENDO OS EVENTOS
     	for(int i = 0; i < values.size(); ++i) {
-    		
-    		datasource.open();
     		
     		TableLayout tl = (TableLayout)findViewById(R.id.tableLayout);
     		tl.setStretchAllColumns(true);
@@ -53,6 +66,7 @@ public class AgentoEvento extends Activity {
         	button.setImageResource(R.drawable.pen);
         	button.setBackgroundResource(0);
         	final int aux = i;
+        	
         	//EVENTO DO BOTÃO EDITAR
         	button.setOnClickListener( new View.OnClickListener() {
 				@Override
@@ -67,6 +81,13 @@ public class AgentoEvento extends Activity {
         	text.setMaxLines(1);
             text.setMaxEms(13);
             text.setTextSize(11);
+            text.setOnClickListener( new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					onShowBar(v);
+				}
+			});
         	
         	final CheckBox box = new CheckBox(this);
         	box.setOnClickListener( new View.OnClickListener() {
@@ -83,20 +104,21 @@ public class AgentoEvento extends Activity {
 					}
 				}
 			});
+        	
         	if(values.get(i).getEstado().toString().equals("pendente"))
         		box.setChecked(false);
-        		else
-        			box.setChecked(true);
+        	else
+        		box.setChecked(true);
 
         	//Adicionando os componentes na linha
         	tr.addView(button);
         	tr.addView(text);
         	tr.addView(box);
+        	
         	//Adicionando a linha no layout
         	tl.addView(tr);
-        	datasource.close();
     	}
-    }
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,10 +153,17 @@ public class AgentoEvento extends Activity {
 		});
     	
         final TextView text = new TextView(this);
-        text.setText("Arraste até a lixeira para excluir");
+        text.setText(DEFAULT_MSG);
         text.setMaxLines(1);
         text.setMaxEms(13);
         text.setTextSize(11);
+        text.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onShowBar(v);
+			}
+		});
         
         final CheckBox box = new CheckBox(this);
     	box.setOnClickListener( new View.OnClickListener() {
@@ -165,21 +194,61 @@ public class AgentoEvento extends Activity {
     @Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
 		//fecha banco
 		datasource.close();
 	}
+    
     @Override
     public void onBackPressed() {
        super.onBackPressed();
+       this.finish();
        startActivity(
        		new Intent(this, Agento.class)
        	);
     }
+    
     public void edita(int i){
     	Intent intent = new Intent(getBaseContext(), EditaEvento.class);
     	intent.putExtra("id_Evento", i);
     	startActivity(intent);
     	finish();
     }
+    
+    public void onShowBar(View v) {
+        mBar.show(v);
+    }
+
+    private void prepareQuickActionBar() {
+        mBar = new QuickActionBar(this);
+        mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_edit, R.string.gd_edit));
+        mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_trashcan, R.string.gd_trashcan));
+        mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_share, R.string.gd_share));
+        
+        mBar.setOnQuickActionClickListener(new OnQuickActionClickListener() {
+            public void onQuickActionClicked(QuickActionWidget widget, int position) {
+            	if(position == 0){ //edit
+            		edita(aux);
+            	}
+                
+            }
+        });
+    }
+    
+    private static class MyQuickAction extends QuickAction {
+        
+        private static final ColorFilter BLACK_CF = new LightingColorFilter(Color.BLACK, Color.BLACK);
+
+        public MyQuickAction(Context ctx, int drawableId, int titleId) {
+            super(ctx, buildDrawable(ctx, drawableId), titleId);
+        }
+        
+        private static Drawable buildDrawable(Context ctx, int drawableId) {
+            Drawable d = ctx.getResources().getDrawable(drawableId);
+            d.setColorFilter(BLACK_CF);
+            return d;
+        }
+        
+    }
+
+
 }

@@ -1,19 +1,16 @@
 package grupo.android.agento;
 
+import greendroid.widget.ActionBarHost;
+
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class AgentoCadastro extends Activity {
 	private UsuariosDataSource datasource;
@@ -27,6 +24,7 @@ public class AgentoCadastro extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agento_cadastro);
+        
         
         //inicializa os EditText para possivel manipulacao
     	usuario = (EditText) findViewById(R.id.usuarioCadastroEditText);
@@ -135,5 +133,13 @@ public class AgentoCadastro extends Activity {
 				msg.setMessage(mensagemErro);
 				break;
     	}
+    }
+    
+    @Override
+    public void onBackPressed() {
+       super.onBackPressed();
+       startActivity(
+       		new Intent(this, Agento.class)
+       	);
     }
 }
