@@ -7,7 +7,6 @@ import greendroid.widget.QuickActionWidget.OnQuickActionClickListener;
 
 import java.util.List;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +17,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class AgentoEvento extends Activity { 
 	private EventosDataSource datasource;
@@ -31,6 +27,7 @@ public class AgentoEvento extends Activity {
     private QuickActionWidget mBar;
     private final String DEFAULT_MSG = "Touch to Edit";
     private int aux;
+    private int linhaSelecionada;
     
     
     @Override
@@ -49,75 +46,25 @@ public class AgentoEvento extends Activity {
         datasource.open();
     	List<Eventos> values = datasource.getAllEventos();
     	datasource.close();
-    	
-    	//LENDO OS EVENTOS
-    	for(int i = 0; i < values.size(); ++i) {
+  
+    		ListView lista = (ListView) findViewById(R.id.eventoListView);
     		
-    		TableLayout tl = (TableLayout)findViewById(R.id.tableLayout);
-    		tl.setStretchAllColumns(true);
+    		QuickActionAdapter adapter = new QuickActionAdapter(this);
     		
-        	//Criando uma nova linha
-        	TableRow tr = new TableRow(this);
-        	tr.setWeightSum(1);
-        	tr.setBackgroundResource(R.drawable.evento_gradiente);
-        	
-        	//Criando os componentes
-        	ImageButton button = new ImageButton(this);
-        	button.setImageResource(R.drawable.pen);
-        	button.setBackgroundResource(0);
-        	final int aux = i;
-        	
-        	//EVENTO DO BOTÃO EDITAR
-        	button.setOnClickListener( new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					edita(aux);
-				}
-			});
-        	
-        	final TextView text = new TextView(this);
-        	evento = values.get(i).getEvento().toString();
-        	text.setText(evento);
-        	text.setMaxLines(1);
-            text.setMaxEms(13);
-            text.setTextSize(11);
-            text.setOnClickListener( new View.OnClickListener() {
+    		adapter.setData(values);
+    		lista.setAdapter(adapter);
+    		
+    		
+    		lista.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				linhaSelecionada = position; //set the selected row
 				
-				@Override
-				public void onClick(View v) {
-					onShowBar(v);
-				}
-			});
+				mBar.show(view);
+				
+			}
+		});
         	
-        	final CheckBox box = new CheckBox(this);
-        	box.setOnClickListener( new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if(box.isChecked() == true){
-						datasource.open();
-				        datasource.update((aux + 1), "concluido", text.getText().toString());
-				        datasource.close();
-					}else{
-						datasource.open();
-				        datasource.update((aux + 1), "pendente", text.getText().toString());
-				        datasource.close();
-					}
-				}
-			});
-        	
-        	if(values.get(i).getEstado().toString().equals("pendente"))
-        		box.setChecked(false);
-        	else
-        		box.setChecked(true);
-
-        	//Adicionando os componentes na linha
-        	tr.addView(button);
-        	tr.addView(text);
-        	tr.addView(box);
-        	
-        	//Adicionando a linha no layout
-        	tl.addView(tr);
-    	}
+    	
 	}
 
     @Override
@@ -128,11 +75,11 @@ public class AgentoEvento extends Activity {
     
     //ADD EVENTO
     public void addEvento(View v){
-    	datasource = new EventosDataSource(this);
+    	/*datasource = new EventosDataSource(this);
     	datasource.open();
     	final List<Eventos> values = datasource.getAllEventos();
     	
-    	TableLayout tl = (TableLayout)findViewById(R.id.tableLayout);
+
     	
         //Criando uma nova linha
         TableRow tr = new TableRow(this);
@@ -180,22 +127,24 @@ public class AgentoEvento extends Activity {
 				}
 			}
 		});
-        //Adicionando os componentes na linha
+        Adicionando os componentes na linha
         tr.addView(button);
         tr.addView(text);
         tr.addView(box);
-        //Adicionando a linha no layout
-        tl.addView(tr);
+        
+    	//Adicionando a linha no layout
+        //tl.addView(tr);
         //Adicionando entrada no Banco de Dados
         datasource.insertEvento("pendente",text.getText().toString());
-        datasource.close();
+        datasource.close();*/
     }
 
     @Override
 	protected void onDestroy() {
 		super.onDestroy();
 		//fecha banco
-		datasource.close();
+		if(datasource != null)
+			datasource.close();
 	}
     
     @Override

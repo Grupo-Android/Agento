@@ -14,16 +14,16 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="62dp"
         android:fillViewport="true" >
-
-        <TableLayout
-            android:id="@+id/tableLayout"
+
+        <ListView
+            android:id="@+id/eventoListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-        </TableLayout>
+        </ListView>
 
     </ScrollView>
-
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/eventos_head"
         android:listSelector="@android:color/transparent" >
-
+
         <ImageButton
             android:id="@+id/btnAddEvento"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:listSelector="@android:color/transparent"
             android:onClick="addEvento"
             android:src="@drawable/plus" />
-
+
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
             android:entries="@array/listviewevento" />
 
     </RelativeLayout>
-
+
     <ImageButton
         android:id="@+id/trashButton"
         android:background="@null"
