@@ -26,8 +26,8 @@ public class AgentoEvento extends Activity {
 	private String evento;
     private QuickActionWidget mBar;
     private final String DEFAULT_MSG = "Touch to Edit";
-    private int aux;
     private int linhaSelecionada;
+    private List<Eventos> values;
     
     
     @Override
@@ -37,34 +37,26 @@ public class AgentoEvento extends Activity {
 
         datasource = new EventosDataSource(this);
         
+        updateValues();
+    	
         prepareQuickActionBar();        
         carregaEventoSalvo();
     }
 
 	private void carregaEventoSalvo() {
-		
-        datasource.open();
-    	List<Eventos> values = datasource.getAllEventos();
-    	datasource.close();
-  
-    		ListView lista = (ListView) findViewById(R.id.eventoListView);
+		ListView lista = (ListView) findViewById(R.id.eventoListView);
+   		
+   		QuickActionAdapter adapter = new QuickActionAdapter(this);
     		
-    		QuickActionAdapter adapter = new QuickActionAdapter(this);
+   		adapter.setData(values);
+   		lista.setAdapter(adapter);
     		
-    		adapter.setData(values);
-    		lista.setAdapter(adapter);
-    		
-    		
-    		lista.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				linhaSelecionada = position; //set the selected row
-				
-				mBar.show(view);
-				
+   		lista.setOnItemClickListener(new OnItemClickListener() {
+   			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+   				linhaSelecionada = position; //set the selected row
+   				mBar.show(view);
 			}
-		});
-        	
-    	
+		});    	
 	}
 
     @Override
@@ -74,7 +66,7 @@ public class AgentoEvento extends Activity {
     }
     
     //ADD EVENTO
-    public void addEvento(View v){
+    public void addEvento(View v) {
     	/*datasource = new EventosDataSource(this);
     	datasource.open();
     	final List<Eventos> values = datasource.getAllEventos();
@@ -156,7 +148,7 @@ public class AgentoEvento extends Activity {
        	);
     }
     
-    public void edita(int i){
+    public void edita(int i) {
     	Intent intent = new Intent(getBaseContext(), EditaEvento.class);
     	intent.putExtra("id_Evento", i);
     	startActivity(intent);
@@ -175,12 +167,29 @@ public class AgentoEvento extends Activity {
         
         mBar.setOnQuickActionClickListener(new OnQuickActionClickListener() {
             public void onQuickActionClicked(QuickActionWidget widget, int position) {
-            	if(position == 0){ //edit
-            		edita(aux);
+            	if (position == 0){ //edit
+            		edita(linhaSelecionada);
+            	}else if (position == 1){
+            		deleta();
             	}
-                
             }
         });
+    }
+    
+  //TODO concertar essa gambiarra
+    public void deleta() {
+    	datasource.open();
+    	datasource.deleteEvento(values.get(linhaSelecionada));
+    	updateValues();
+    	datasource.close();
+    	carregaEventoSalvo();
+    }
+    
+    //abre o banco e carrega values com todos os eventos
+    public void updateValues(){
+    	datasource.open();
+        values = datasource.getAllEventos();
+    	datasource.close();
     }
     
     private static class MyQuickAction extends QuickAction {

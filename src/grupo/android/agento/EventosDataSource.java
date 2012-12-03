@@ -50,7 +50,7 @@ public class EventosDataSource {
 		database.update(MySQLiteHelper.TABLE_EVENTOS, values, "_id ="+id, null);
 	}
 	
-	// Deletar evento se necessário no futuro
+	// Deletar evento
 	public void deleteEvento(Eventos evento){
 	    long id = evento.getId();
 	    database.delete(MySQLiteHelper.TABLE_EVENTOS, MySQLiteHelper.COLUNA_ID_EVENTO
