@@ -710,7 +710,7 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020053;
         public static final int ic_list_more=0x7f020054;
         public static final int navigation_accept=0x7f020055;
-        public static final int pen=0x7f020056;
+        public static final int navigation_accept_two=0x7f020056;
         public static final int plus=0x7f020057;
         public static final int trash=0x7f020058;
     }
@@ -828,6 +828,7 @@ containing a value of this type.
     public static final class string {
         public static final int app_name=0x7f08001c;
         public static final int cancelar=0x7f080027;
+        public static final int completar=0x7f080030;
         public static final int email=0x7f080025;
         public static final int erro=0x7f080028;
         public static final int fechar=0x7f08002e;

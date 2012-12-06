@@ -19,15 +19,17 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class AgentoEvento extends Activity { 
 	private EventosDataSource datasource;
-	private String evento;
     private QuickActionWidget mBar;
     private final String DEFAULT_MSG = "Touch to Edit";
-    private int linhaSelecionada;
-    private List<Eventos> values;
+    private int linhaSelecionada;  	//usado para controle da linha que for selecionada na ListView
+    private List<Eventos> values; 	//list que contem todos os eventos
+    private QuickActionAdapter adapter;
+    private ImageView completadoCheck = null;
     
     
     @Override
@@ -37,8 +39,10 @@ public class AgentoEvento extends Activity {
 
         datasource = new EventosDataSource(this);
         
+        datasource.open();
+        
+        //metodos de inicializacao da activity
         updateValues();
-    	
         prepareQuickActionBar();        
         carregaEventoSalvo();
     }
@@ -46,11 +50,11 @@ public class AgentoEvento extends Activity {
 	private void carregaEventoSalvo() {
 		ListView lista = (ListView) findViewById(R.id.eventoListView);
    		
-   		QuickActionAdapter adapter = new QuickActionAdapter(this);
+   		adapter = new QuickActionAdapter(this);
     		
    		adapter.setData(values);
    		lista.setAdapter(adapter);
-    		
+
    		lista.setOnItemClickListener(new OnItemClickListener() {
    			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
    				linhaSelecionada = position; //set the selected row
@@ -65,70 +69,18 @@ public class AgentoEvento extends Activity {
         return true;     
     }
     
-    //ADD EVENTO
-    public void addEvento(View v) {
-    	/*datasource = new EventosDataSource(this);
-    	datasource.open();
-    	final List<Eventos> values = datasource.getAllEventos();
-    	
 
+    public void addEvento(View v) {
+    	if(datasource == null)
+    		datasource.open();
     	
-        //Criando uma nova linha
-        TableRow tr = new TableRow(this);
-        tr.setWeightSum(1);
-        tr.setBackgroundResource(R.drawable.evento_gradiente);
-        
-        //Criando os componentes
-        ImageButton button = new ImageButton(this);
-        button.setImageResource(R.drawable.pen);
-        button.setBackgroundResource(0);
-        
-    	//EVENTO DO BOTÃO EDITAR
-    	button.setOnClickListener( new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				edita(values.size());
-			}
-		});
+    	Eventos defaultEvento = new Eventos(0, "pendente", DEFAULT_MSG); // o id não importa
+    	datasource.insertEvento(defaultEvento);
     	
-        final TextView text = new TextView(this);
-        text.setText(DEFAULT_MSG);
-        text.setMaxLines(1);
-        text.setMaxEms(13);
-        text.setTextSize(11);
-        text.setOnClickListener( new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				onShowBar(v);
-			}
-		});
-        
-        final CheckBox box = new CheckBox(this);
-    	box.setOnClickListener( new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(box.isChecked() == true){
-					datasource.open();
-			        datasource.update((values.size()), "concluido", text.getText().toString());
-			        datasource.close();
-				}else{
-					datasource.open();
-			        datasource.update((values.size()), "pendente", text.getText().toString());
-			        datasource.close();
-				}
-			}
-		});
-        Adicionando os componentes na linha
-        tr.addView(button);
-        tr.addView(text);
-        tr.addView(box);
-        
-    	//Adicionando a linha no layout
-        //tl.addView(tr);
-        //Adicionando entrada no Banco de Dados
-        datasource.insertEvento("pendente",text.getText().toString());
-        datasource.close();*/
+    	//atualiza mudanças na tela
+    	updateValues();
+    	adapter.setData(values);
+   		adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -142,6 +94,11 @@ public class AgentoEvento extends Activity {
     @Override
     public void onBackPressed() {
        super.onBackPressed();
+       
+       //fecha o datasource se estiver aberto
+       if(datasource != null)
+    	   datasource.close();
+       
        this.finish();
        startActivity(
        		new Intent(this, Agento.class)
@@ -149,8 +106,13 @@ public class AgentoEvento extends Activity {
     }
     
     public void edita(int i) {
-    	Intent intent = new Intent(getBaseContext(), EditaEvento.class);
-    	intent.putExtra("id_Evento", i);
+    	//fecha o datasource se estiver aberto
+		if(datasource != null)
+			datasource.close();
+		
+		Intent intent = new Intent(getBaseContext(), EditaEvento.class);
+	    intent.putExtra("id_Evento", values.get(i).getId());
+
     	startActivity(intent);
     	finish();
     }
@@ -163,33 +125,56 @@ public class AgentoEvento extends Activity {
         mBar = new QuickActionBar(this);
         mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_edit, R.string.gd_edit));
         mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_trashcan, R.string.gd_trashcan));
-        mBar.addQuickAction(new MyQuickAction(this, R.drawable.gd_action_bar_share, R.string.gd_share));
+        mBar.addQuickAction(new MyQuickAction(this, R.drawable.navigation_accept, R.string.completar));
         
         mBar.setOnQuickActionClickListener(new OnQuickActionClickListener() {
             public void onQuickActionClicked(QuickActionWidget widget, int position) {
-            	if (position == 0){ //edit
+            	if (position == 0) { //edit            		
             		edita(linhaSelecionada);
-            	}else if (position == 1){
+            	} else if (position == 1) { //delete
             		deleta();
+            	} else if (position == 2) { //completar
+            		completar();
             	}
             }
         });
     }
     
-  //TODO concertar essa gambiarra
     public void deleta() {
-    	datasource.open();
     	datasource.deleteEvento(values.get(linhaSelecionada));
-    	updateValues();
-    	datasource.close();
-    	carregaEventoSalvo();
+    	values.remove(linhaSelecionada);
+    	adapter.notifyDataSetChanged();
     }
     
     //abre o banco e carrega values com todos os eventos
     public void updateValues(){
-    	datasource.open();
         values = datasource.getAllEventos();
-    	datasource.close();
+    }
+    
+    public void completar() {
+    	if(datasource == null)
+    		datasource.open();
+    	
+    	Eventos evento = values.get(linhaSelecionada);
+    	completadoCheck = (ImageView) findViewById(R.id.ic_more);
+    	
+    	//modifica o status
+    	if (evento.getEstado().equals("pendente")){
+    		datasource.update(evento.getId(), "concluido", evento.getEvento());
+    		
+			//troca icone para completado
+			completadoCheck.setImageResource(R.drawable.navigation_accept_two);
+    	}else{
+    		datasource.update(evento.getId(), "pendente", evento.getEvento());
+    		
+    		//troca icone para não completado
+    		completadoCheck.setImageResource(R.drawable.navigation_accept);
+    	}
+    	
+    	//atualiza mudanças na tela
+    	updateValues();
+    	adapter.setData(values);
+   		adapter.notifyDataSetChanged();
     }
     
     private static class MyQuickAction extends QuickAction {
@@ -207,6 +192,4 @@ public class AgentoEvento extends Activity {
         }
         
     }
-
-
 }

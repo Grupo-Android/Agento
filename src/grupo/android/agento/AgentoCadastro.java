@@ -1,7 +1,5 @@
 package grupo.android.agento;
 
-import greendroid.widget.ActionBarHost;
-
 import java.util.List;
 
 import android.app.Activity;

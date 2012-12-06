@@ -29,9 +29,26 @@ public class EventosDataSource {
 	
 	// Insert na tabela EVENTOS
 	public Eventos insertEvento(String estado, String evento) {
+		open();
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUNA_ESTADO, estado);
 		values.put(MySQLiteHelper.COLUNA_EVENTO, evento);
+		long insertId = database.insert(MySQLiteHelper.TABLE_EVENTOS, null,
+				values);
+		Cursor cursor = database.query(MySQLiteHelper.TABLE_EVENTOS,
+				colunasEventos, MySQLiteHelper.COLUNA_ID_EVENTO + " = " + insertId, null,
+				null, null, null);
+		cursor.moveToFirst();
+		Eventos novoEvento = cursorToEvento(cursor);
+		cursor.close();
+		return novoEvento;
+	}
+	
+	public Eventos insertEvento(Eventos evento) {
+		open();
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COLUNA_ESTADO, evento.getEstado());
+		values.put(MySQLiteHelper.COLUNA_EVENTO, evento.getEvento());
 		long insertId = database.insert(MySQLiteHelper.TABLE_EVENTOS, null,
 				values);
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_EVENTOS,
@@ -52,6 +69,7 @@ public class EventosDataSource {
 	
 	// Deletar evento
 	public void deleteEvento(Eventos evento){
+		open();
 	    long id = evento.getId();
 	    database.delete(MySQLiteHelper.TABLE_EVENTOS, MySQLiteHelper.COLUNA_ID_EVENTO
 	        + " = " + id, null);
@@ -75,10 +93,8 @@ public class EventosDataSource {
 	  }
 	
 	private Eventos cursorToEvento(Cursor cursor) {
-	    Eventos evento = new Eventos();
-	    evento.setId(cursor.getLong(0));
-	    evento.setEstado(cursor.getString(1));
-	    evento.setEvento(cursor.getString(2));
+	    Eventos evento = new Eventos(cursor.getLong(0), cursor.getString(1), 
+	    		cursor.getString(2));
 	    return evento;
 	  }
 }

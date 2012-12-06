@@ -2,37 +2,43 @@ package grupo.android.agento;
 
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
 
 public class EditaEvento extends Activity {
 
 	private TextView text;
 	private EventosDataSource datasource;
 	private SQLiteDatabase sql;
-	private long value;
+	private Eventos eventoEditado;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edita_evento);
-        //Recuperando o id do evento
-        Bundle extras = getIntent().getExtras();
-        value = getIntent().getIntExtra("id_Evento", -1);
         
+        //inicializacao
         text = (TextView)findViewById(R.id.editEvento);
-        
         datasource = new EventosDataSource(this);
         datasource.open();
     	List<Eventos> values = datasource.getAllEventos();
-    	text.setText(values.get((int) value).getEvento().toString());
+        
+        //Recuperando o id do evento
+        long id = getIntent().getLongExtra("id_Evento", -1);
+        
+        //seta eventoEditado baseado no id
+    	for (int i = 0; i < values.size(); ++i) 
+    		if (id == values.get(i).getId())
+    			eventoEditado = values.get(i);
+    	
+    	//seta o texto com o evento a ser editado
+        text.setText(eventoEditado.getEvento().toString()); 
+        
     	datasource.close();
     }
 
@@ -42,12 +48,14 @@ public class EditaEvento extends Activity {
         return true;
     }
 
-    public void salvar(View v){
+    public void salvar(View v) {
         datasource.open();
-        datasource.update((value + 1), "pendente", text.getText().toString());
+        datasource.update(
+        		eventoEditado.getId(), eventoEditado.getEstado(), //id e estado permanecem iguais
+        		text.getText().toString()); //texto muda
         datasource.close();
     }
-    public void cancelar(View v){
+    public void cancelar(View v) {
     	startActivity(
            	new Intent(this, AgentoEvento.class)
         );
