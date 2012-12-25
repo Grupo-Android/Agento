@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical" >
+    android:columnCount="3"
+    android:orientation="horizontal" >
 
     <EditText
         android:id="@+id/usuarioCadastroEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="33dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textUri" />
@@ -23,32 +23,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/usuarioCadastroEditText"
+        android:layout_alignRight="@+id/usuarioCadastroEditText"
         android:layout_below="@+id/usuarioCadastroEditText"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword" >
+    </EditText>
 
     <EditText
         android:id="@+id/emailCadastroEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/senhaCadastroEditText"
-        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/senhaCadastroEditText"
+        android:layout_below="@+id/senhaCadastroEditText"
+        android:layout_marginTop="35dp"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/emailCadastroEditText"
-        android:layout_below="@+id/emailCadastroEditText"
-        android:layout_marginTop="74dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="29dp"
         android:background="@drawable/button_background_1"
         android:onClick="registrar"
         android:text="@string/register"
@@ -60,7 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button1"
         android:layout_alignBottom="@+id/button1"
-        android:layout_alignRight="@+id/emailCadastroEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/button_background_1"
         android:onClick="cancelar"
         android:text="@string/cancelar"

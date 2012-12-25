@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="cinza_escuro">#454545</color>
-   	<color name="branco">#FFFFFF</color>
-   	<color name="cinza_escuro_mais_claro">#646464</color>
-   	<color name="cinza_claro">#888888</color>
-   	<color name="cinza_claro_mais_claro">#a1a1a1</color>
+    <color name="branco">#FFFFFF</color>
+    <color name="cinza_escuro_mais_claro">#646464</color>
+    <color name="cinza_claro">#888888</color>
+    <color name="cinza_claro_mais_claro">#a1a1a1</color>
+
 </resources>

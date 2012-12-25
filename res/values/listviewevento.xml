@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="listviewevento">
         <item>"Todas"</item>
         <item>"Pendentes"</item>
         <item>"Concluídos"</item>
     </string-array>
+
 </resources>

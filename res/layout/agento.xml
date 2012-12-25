@@ -13,9 +13,8 @@
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textUri" >
-
     </EditText>
-
+
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
@@ -26,7 +25,7 @@
         android:onClick="esqueciSenhaRedirecionamento"
         android:text="@string/forget_password"
         android:textColor="@android:color/white" />
-
+
     <Button
         android:id="@+id/button1"
         android:layout_width="100dp"
@@ -37,7 +36,7 @@
         android:onClick="entrar"
         android:text="@string/login"
         android:textColor="@android:color/white" />
-
+
     <Button
         android:id="@+id/button2"
         android:layout_width="180dp"
